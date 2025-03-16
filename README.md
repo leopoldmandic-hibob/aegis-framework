@@ -2,6 +2,10 @@
 
 > An AI-powered framework for managing complex software projects.
 
+## Watch the Quick Start Video:
+[![Watch the video](https://img.youtube.com/vi/1BA5jCPous4/hqdefault.jpg)](https://www.youtube.com/watch?v=1BA5jCPous4)
+
+
 ## What is Aegis?
 
 Aegis is a powerful framework that combines AI capabilities with structured project management to help teams build better software. It provides:

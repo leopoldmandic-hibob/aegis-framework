@@ -20,15 +20,15 @@ Aegis is built on a collaborative philosophy where humans and AI work together w
 - **Shared Understanding**: The framework creates an environment where humans and AI operate from the same playbook
 - **Transparent Operation**: Documentation explains not just what to do, but why and how Aegis approaches different aspects of project management
 
-For more details on this collaborative approach, see [Understanding Best Practices in the Aegis Framework](user-guide/best-practices-purpose.md).
+For more details on this collaborative approach, see [Understanding Best Practices in the Aegis Framework](https://buildsomething.ai/aegis/user-guide/best-practices-purpose/).
 
 ## Quick Links
 
-- [Quick Start Guide](quick-start/installation.md)
-- [User Guide](user-guide/concepts/framework-structure.md)
-- [Developer Guide](developer-guide/architecture/directory-structure.md)
-- [Tutorials](tutorials/getting-started.md)
-- [Reference](reference/templates/task-templates.md)
+- [Quick Start Guide](https://buildsomething.ai/aegis/quick-start/installation/)
+- [User Guide](https://buildsomething.ai/aegis/user-guide/concepts/framework-structure/)
+- [Developer Guide](https://buildsomething.ai/aegis/developer-guide/architecture/directory-structure/)
+- [Tutorials](https://buildsomething.ai/aegis/tutorials/getting-started/)
+- [Reference](https://buildsomething.ai/aegis/reference/templates/task-templates/)
 
 ## Key Features
 
@@ -46,14 +46,13 @@ Ensure consistency and correctness with built-in validation rules.
 
 ## Getting Started
 
-1. [Install Aegis](quick-start/installation.md)
-2. [Create Your First Project](quick-start/first-project.md)
-3. [Learn Basic Commands](quick-start/basic-commands.md)
-4. [Explore Common Workflows](quick-start/common-workflows.md)
+1. [Install Aegis](https://buildsomething.ai/aegis/quick-start/installation/)
+2. [Create Your First Project](https://buildsomething.ai/aegis/quick-start/first-project/)
+3. [Learn Basic Commands](https://buildsomething.ai/aegis/quick-start/basic-commands/)
+4. [Explore Common Workflows](https://buildsomething.ai/aegis/quick-start/common-workflows/)
 
 ## Support & Community
 
 - [GitHub Repository](https://github.com/codeium/aegis)
-- [Documentation](https://docs.aegis.dev)
-- [Community Forum](https://community.aegis.dev)
-- [Issue Tracker](https://github.com/codeium/aegis/issues)
+- [Documentation](https://buildsomething.ai/aegis)
+- [Issue Tracker](https://github.com/BuildSomethingAI/aegis-framework/issues)

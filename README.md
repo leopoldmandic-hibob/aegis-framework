@@ -53,6 +53,6 @@ Ensure consistency and correctness with built-in validation rules.
 
 ## Support & Community
 
-- [GitHub Repository](https://github.com/codeium/aegis)
+- [GitHub Repository](https://github.com/BuildSomethingAI/aegis-framework)
 - [Documentation](https://buildsomething.ai/aegis)
 - [Issue Tracker](https://github.com/BuildSomethingAI/aegis-framework/issues)

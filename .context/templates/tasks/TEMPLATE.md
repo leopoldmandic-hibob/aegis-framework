@@ -34,6 +34,16 @@ tags: []
 - [Dependency 1: Description]
 - [Dependency 2: Description]
 
+## Code Context
+- file: [src/component/file.js]
+  relevance: [0.9]
+  sections: [10-45]
+  reason: "[Core implementation for this feature]"
+- file: [src/utils/helper.js]
+  relevance: [0.7]
+  sections: [all]
+  reason: "[Contains utility functions needed for implementation]"
+
 ## Notes
 [Important notes about implementation, constraints, or considerations]
 

@@ -277,25 +277,44 @@ command_template:
       - session_creation:
           description: "Create a new session document"
           validation:
-            - template_valid: "Session template must be valid"
+            - template_exists: "Session template must exist"
             - session_created: "Session document must be created"
+            - format_valid: "Session must have valid format"
           implementation: |
-            1. Generate a new session ID based on current date/time
-            2. Create session document using template at .context/templates/sessions/TEMPLATE.md
-            3. Set initial session metadata (created, updated timestamps)
-            4. Set session status to "active"
+            1. Generate session ID from date
+            2. Copy session template to new file
+            3. Update session metadata (front matter)
+            4. Initialize session sections
       
       - focus_setting:
-          description: "Set the initial focus for the session"
+          description: "Set the session focus"
           validation:
-            - focus_set: "Focus must be set"
+            - focus_valid: "Focus must be valid"
+            - task_exists: "Focus task must exist"
+            - transition_valid: "Task state transition must be valid"
           implementation: |
-            1. Set focus in session document
-            2. If focusing on a task, update task status if needed
-            3. Document focus in session Progress section
+            1. Identify focus task
+            2. If needed, move task from planned to active
+            3. Set focus in session document
+            4. Update task state if needed
       
-      - recommendation_loading:
-          description: "Load recommendations from self-improvement"
+      - code_context_loading:
+          description: "Load relevant code context for focused task"
+          validation:
+            - task_exists: "Task must exist to load code context"
+            - context_valid: "Code context section must be valid"
+          implementation: |
+            1. Read Code Context section from focused task
+            2. Prioritize code files by relevance score
+            3. Load high relevance (≥0.7) code immediately
+            4. Prepare search instructions for medium relevance (0.3-0.6) code
+            5. Note low relevance (<0.3) code for reference only when needed
+            6. Track loaded code in session for context management
+            7. Verify no .context/ directory files are included
+            8. Focus exclusively on source code files relevant to implementation
+      
+      - recommendations_loading:
+          description: "Load self-improvement recommendations"
           validation:
             - recommendations_loaded: "Recommendations must be loaded"
           implementation: |
@@ -388,9 +407,15 @@ command_template:
        - Set focus to TASK-123
        - If TASK-123 is in planned/, move to active/
        - Document focus in session Progress section
-    3. Load recommendations:
+    3. Load code context:
+       - Read Code Context section from TASK-123
+       - Load high relevance code files immediately
+       - Prepare search instructions for medium relevance files
+       - Note low relevance files for reference only
+       - Track loaded code in session for context management
+    4. Load recommendations:
        - Include relevant recommendations from self_improvement.json
-    4. Update session memory:
+    5. Update session memory:
        - Update active.json with new session information
        - Set sessionId, status, started timestamp
        - Set activeTask to TASK-123

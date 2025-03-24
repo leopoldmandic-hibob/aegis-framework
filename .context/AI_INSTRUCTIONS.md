@@ -166,6 +166,35 @@ Comprehensive implementation guide for the Aegis framework, containing detailed 
 └── decisions/         # Decision records
 ```
 
+3. Code Context Management
+   - Purpose: Optimize context window usage by mapping tasks to relevant code
+   - Implementation: 
+     - Each task includes a "Code Context" section
+     - Lists relevant files with relevance scores, sections, and reasons
+   - Usage Guidelines:
+     - When loading code for a task, prioritize by relevance score
+     - Load files with relevance ≥ 0.7 immediately
+     - Prepare search instructions for files with relevance 0.3-0.6
+     - Only reference files with relevance < 0.3 when specifically needed
+     - Focus exclusively on source code files, ignoring .context directory files
+     - Prioritize implementation files most directly related to the task
+   - Maintenance:
+     - Update Code Context when files are created, modified, or deleted
+     - Increase relevance for files that are frequently accessed during the task
+     - Add new files discovered during implementation
+     - Remove irrelevant files or adjust relevance as understanding improves
+   - Relevance Scoring Guide:
+     - 0.9-1.0: Critical to the task, must be included
+     - 0.7-0.8: Highly relevant, should be included
+     - 0.5-0.6: Moderately relevant, include if context allows
+     - 0.3-0.4: Somewhat relevant, reference only when needed
+     - 0.0-0.2: Minimally relevant, do not load unless specifically requested
+   - File Selection Rules:
+     - NEVER include files from .context/ directory in Code Context
+     - Focus exclusively on source code files relevant to implementation
+     - Include test files only when the task directly involves testing
+     - For framework tasks, include only the specific framework files being modified
+
 ## Memory System
 
 ### Memory Types

@@ -245,6 +245,14 @@ command_template:
             1. Update task front matter (status, updated timestamp)
             2. Update task progress section
             3. Update task next steps section
+            4. Maintain Code Context section:
+               - Add newly discovered relevant files
+               - Update relevance scores based on usage
+               - Add specific line number ranges when possible
+               - Remove or downgrade irrelevant files
+               - NEVER include files from .context/ directory
+               - Focus exclusively on source code files relevant to implementation
+               - For framework tasks, include only specific framework files being modified
       
       - project_update:
           description: "Update project context with task changes"

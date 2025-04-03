@@ -39,6 +39,7 @@ Comprehensive implementation guide for the Aegis framework, containing detailed 
    - Target state allowed
    - Dependencies met
    - Progress tracked
+   - Test status appropriate
 
 3. **Memory Validation**
    - Front matter valid
@@ -82,6 +83,8 @@ Comprehensive implementation guide for the Aegis framework, containing detailed 
 - [ ] Validate the current task state
 - [ ] Perform the requested task operation
 - [ ] Update the task document
+- [ ] Verify test status when completing a task
+- [ ] Prompt for confirmation if test status is not "Passing" or "Not Applicable"
 - [ ] Update project.json with task changes
 - [ ] Update timestamps to current time
 - [ ] Verify all files have been properly updated
@@ -151,6 +154,7 @@ Comprehensive implementation guide for the Aegis framework, containing detailed 
    - Dependencies noted
    - Status updated
    - Next steps defined
+   - Test status managed
 
 2. Directory Structure
 ```
@@ -194,6 +198,33 @@ Comprehensive implementation guide for the Aegis framework, containing detailed 
      - Focus exclusively on source code files relevant to implementation
      - Include test files only when the task directly involves testing
      - For framework tasks, include only the specific framework files being modified
+
+4. Test-Driven Development Integration
+   - Purpose: Support TDD workflow within the framework
+   - Implementation:
+     - Each task includes a "Test Status" section
+     - Valid statuses: Not Started, Failing, Passing, Not Applicable
+       - "Not Started": Tests haven't been written yet, or testing has not begun
+       - "Failing": Tests exist but are failing (implementation incomplete/incorrect)
+       - "Passing": All tests are passing (implementation complete and correct)
+       - "Not Applicable": Task doesn't require tests (documentation, planning, etc.)
+     - Related test files are tracked with brief descriptions
+   - Task Completion Logic:
+     - When test status is "Passing", task can be completed normally
+     - When test status is "Failing", prompt user for confirmation before completing
+     - When test status is "Not Applicable", task can be completed normally
+     - When test status is "Not Started", prompt user for confirmation before completing
+   - Status Management:
+     - Update test status when test files are created or modified
+     - Set initial status to "Not Started" for tasks involving implementation
+     - Set initial status to "Not Applicable" for tasks not requiring tests (e.g., documentation)
+     - Track test files path and descriptions in the task document
+   - Best Practices:
+     - Always update test status when related tests are created or modified
+     - Include comments or documentation about test requirements
+     - Link to specific test files in the task document
+     - Explain why a task is marked as "Not Applicable" when applicable
+     - For TDD workflow: tests should transition from "Not Started" → "Failing" → "Passing"
 
 ## Memory System
 
@@ -620,3 +651,26 @@ If you detect inconsistencies between state files and the actual system:
 2. Update state files to match the actual system state
 3. Document the reconciliation in your response to the user
 4. Suggest preventive measures to avoid future inconsistencies
+
+### TaskTemplate
+      "FrontMatter": [
+        "title, type=task",
+        "status=[planned|active|completed|hold]",
+        "created=YYYY-MM-DDTHH:MM:SS",
+        "updated=YYYY-MM-DDTHH:MM:SS",
+        "id=TASK-XXX",
+        "priority=[high|medium|low]",
+        "memory_types=[procedural|semantic|episodic]",
+        "dependencies, tags"
+      ]
+    },
+    "RequiredTaskSections": [
+      "Description",
+      "Objectives",
+      "Steps",
+      "Progress",
+      "Dependencies",
+      "Test Status",
+      "Notes",
+      "Next Steps"
+    ],

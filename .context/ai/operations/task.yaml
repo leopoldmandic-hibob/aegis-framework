@@ -233,7 +233,11 @@ command_template:
           implementation: |
             1. For create: Copy template and create new task file
             2. For start: Move task from planned to active
-            3. For complete: Move task from active to completed
+            3. For complete: 
+               - Check Test Status section value
+               - If status is "Passing" or "Not Applicable", proceed normally
+               - If status is "Failing" or "Not Started", prompt user for confirmation
+               - Only after confirmation or if status is acceptable, move task from active to completed
             4. For hold: Move task from active to hold
       
       - task_update:

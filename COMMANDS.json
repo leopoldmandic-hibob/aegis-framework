@@ -6,7 +6,7 @@
       "Update front matter after moves",
       "Assume dirs exist (no mkdir -p)",
       "No duplicate task files",
-      "ALWAYS use current year (2025) for all timestamps",
+      "ALWAYS use current year for all timestamps",
       "ALWAYS use EXACT current time from metadata (hours:minutes:seconds)"
     ],
     "CoreCommands": {
@@ -80,15 +80,15 @@
       ],
       "UpdateFrontMatter": [
         "Update 'status' to match target dir",
-        "Update 'updated' with YYYY-MM-DDTHH:MM:SS (current year 2025, EXACT current time)"
+        "Update 'updated' with YYYY-MM-DDTHH:MM:SS (current year, EXACT current time)"
       ],
       "TimestampGeneration": [
-        "ALWAYS use current year (2025)",
+        "ALWAYS use current year",
         "ALWAYS use EXACT current time from metadata (hours:minutes:seconds)",
         "NEVER use default or placeholder times",
         "Front matter: YYYY-MM-DDTHH:MM:SS (ISO 8601 with T separator)",
         "Example: 2025-03-05T12:41:19",
-        "Include timezone when available: 2025-03-05T12:41:19-05:00"
+        "Include timezone when available"
       ]
     },
     "TaskTemplate": {
@@ -158,7 +158,7 @@
       "Modifying template structure",
       "Missing required fields",
       "Duplicate tasks",
-      "Using incorrect year (not 2025) in timestamps",
+      "Using incorrect year in timestamps",
       "Using default/placeholder times instead of exact current time",
       "Omitting Self-Improvement section in sessions"
     ],
@@ -167,9 +167,9 @@
       "Use mv (not cp) for transitions",
       "No mkdir -p",
       "Update front matter after moves",
-      "Front Matter Timestamps: YYYY-MM-DDTHH:MM:SS (current year 2025, with T separator, EXACT current time)",
-      "File Names: YYYY-MM-DD (current year 2025)",
-      "Always use current year (2025) for all timestamps",
+      "Front Matter Timestamps: YYYY-MM-DDTHH:MM:SS (current year, with T separator, EXACT current time)",
+      "File Names: YYYY-MM-DD",
+      "Always use current year for all timestamps",
       "Always use EXACT current time from metadata for timestamps",
       "Include Self-Improvement section in session documents"
     ],

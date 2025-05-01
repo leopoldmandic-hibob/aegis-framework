@@ -7,7 +7,7 @@
 3. **ALWAYS update front matter after moves**
 4. **ALWAYS assume directories exist** (NO `mkdir -p` needed)
 5. **NEVER create duplicate task files**
-6. **ALWAYS use current year (2025) for all timestamps**
+6. **ALWAYS use current year for all timestamps**
 7. **ALWAYS use EXACT current time from metadata for timestamps**
 
 ## Core Commands
@@ -116,7 +116,7 @@ When generating timestamps:
 - NEVER use default or placeholder times
 - Front matter requires full ISO 8601 format with T separator
 - Example: `2025-03-05T12:41:19` (using exact current time)
-- Include timezone offset when available: `2025-03-05T12:41:19-05:00`
+- Include timezone offset when available
 
 ## Task Template
 ```yaml
@@ -159,8 +159,8 @@ Before executing any command:
 3. Skip `mkdir -p` commands - directories exist
 4. Update front matter after task moves
 5. Use correct timestamp formats:
-   - Front Matter: `YYYY-MM-DDTHH:MM:SS` (current year 2025, with T separator)
-   - File Names: `YYYY-MM-DD` (current year 2025)
+   - Front Matter: `YYYY-MM-DDTHH:MM:SS`
+   - File Names: `YYYY-MM-DD`
 
 ## Directory Documentation
 1. Every directory contains a README.md that MUST be consulted first

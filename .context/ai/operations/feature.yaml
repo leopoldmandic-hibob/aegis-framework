@@ -1,0 +1,197 @@
+name: feature
+description: Manage feature-based development contexts
+version: 1.0
+
+validation_source:
+  file: validation.yaml
+  type: command_validation
+  rules:
+    - feature
+
+input:
+  type: command
+  pattern: /aegis feature [subcommand]
+  subcommands:
+    - name: create
+      description: Create a new feature context
+      params:
+        - name: feature_name
+          required: true
+          validation: lowercase, alphanumeric, hyphens
+    - name: list
+      description: List all features
+    - name: status
+      description: Show feature status
+      params:
+        - name: feature_name
+          required: true
+    - name: archive
+      description: Archive a completed feature
+      params:
+        - name: feature_name
+          required: true
+
+output:
+  type: operation
+  actions:
+    - manage_feature
+    - update_context
+
+steps:
+  1_validate:
+    - check_framework:
+        rules:
+          - framework_structure
+          - required_files
+          - permissions
+    - validate_feature_name:
+        rules:
+          - lowercase_only
+          - alphanumeric_hyphens
+          - no_spaces
+          - max_length_30
+
+  2_execute_create:
+    condition: subcommand == "create"
+    steps:
+      - create_feature_structure:
+          directories:
+            - features/{feature_name}
+            - features/{feature_name}/tasks/planned
+            - features/{feature_name}/tasks/active
+            - features/{feature_name}/tasks/completed
+            - features/{feature_name}/tasks/hold
+            - features/{feature_name}/memory
+            - features/{feature_name}/plan
+            - features/{feature_name}/sessions
+            - features/{feature_name}/decisions
+      - create_feature_context:
+          template: templates/features/feature_context_TEMPLATE.md
+          target: features/{feature_name}/feature_context.md
+          variables:
+            - feature_name
+            - created_date
+            - owner
+      - create_feature_plan:
+          template: templates/features/feature_plan_TEMPLATE.md
+          target: features/{feature_name}/plan/feature_plan.md
+          variables:
+            - feature_name
+            - created_date
+      - initialize_feature_memory:
+          files:
+            - features/{feature_name}/memory/context.json
+            - features/{feature_name}/memory/state.json
+
+  3_execute_list:
+    condition: subcommand == "list"
+    steps:
+      - scan_features_directory:
+          path: features/
+          exclude: [".gitkeep", "README.md"]
+      - load_feature_contexts:
+          foreach: feature_directory
+          load: feature_context.md
+          extract: [name, status, owner, created, updated]
+      - format_feature_list:
+          columns: [Name, Status, Owner, Updated]
+          sort_by: updated
+          order: desc
+
+  4_execute_status:
+    condition: subcommand == "status"
+    steps:
+      - validate_feature_exists:
+          path: features/{feature_name}
+      - load_feature_context:
+          file: features/{feature_name}/feature_context.md
+      - count_tasks:
+          planned: features/{feature_name}/tasks/planned/
+          active: features/{feature_name}/tasks/active/
+          completed: features/{feature_name}/tasks/completed/
+          hold: features/{feature_name}/tasks/hold/
+      - recent_activity:
+          sessions: features/{feature_name}/sessions/
+          decisions: features/{feature_name}/decisions/
+          limit: 5
+      - format_status_report:
+          sections:
+            - overview
+            - task_summary
+            - recent_activity
+            - next_steps
+
+  5_verify:
+    - validate_operation_result
+    - update_project_context
+    - log_operation
+
+errors:
+  feature:
+    invalid_name: "Feature name must be lowercase with hyphens only"
+    already_exists: "Feature {feature_name} already exists"
+    not_found: "Feature {feature_name} not found"
+    creation_failed: "Failed to create feature structure"
+
+recovery:
+  feature:
+    invalid_name: "Use lowercase letters and hyphens only (e.g., user-auth)"
+    already_exists: "Choose a different feature name or update existing"
+    not_found: "Check feature name or use 'feature list' to see available features"
+    creation_failed: "Check permissions and try again"
+
+command_template:
+  name: feature
+  description: "Template for implementing feature management commands"
+  version: 1.0
+  
+  required_components:
+    pre_execution:
+      - feature_validation:
+          description: "Validate feature name and structure"
+          validation:
+            - name_valid: "Feature name must be valid"
+          implementation: |
+            1. Check feature name format (lowercase, hyphens)
+            2. Verify feature doesn't already exist (for create)
+            3. Verify feature exists (for status/archive)
+    
+    execution:
+      - feature_creation:
+          description: "Create new feature structure"
+          validation:
+            - structure_created: "Feature structure must be created"
+          implementation: |
+            1. Create feature directory structure
+            2. Copy templates to create initial files
+            3. Initialize feature memory
+            4. Update project context with new feature
+      
+      - feature_listing:
+          description: "List all features"
+          validation:
+            - list_generated: "Feature list must be generated"
+          implementation: |
+            1. Scan features directory
+            2. Load each feature's context
+            3. Format and display feature information
+      
+      - feature_status:
+          description: "Show feature status"
+          validation:
+            - status_generated: "Feature status must be generated"
+          implementation: |
+            1. Load feature context
+            2. Count tasks in each state
+            3. Find recent activity
+            4. Generate status report
+    
+    post_execution:
+      - verification:
+          description: "Verify operation completed successfully"
+          validation:
+            - operation_verified: "Operation must be verified"
+          implementation: |
+            1. Verify all files created/updated
+            2. Update project context
+            3. Log operation for audit trail

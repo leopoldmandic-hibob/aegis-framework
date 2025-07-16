@@ -45,6 +45,9 @@ Track progress, manage dependencies, and ensure nothing falls through the cracks
 ### Memory System
 Maintain context across sessions and team members with an intelligent memory system.
 
+### Feature-Based Development
+Organize work into self-contained features, each with its own tasks, memory, and planning documents. This enables parallel development and better modularization.
+
 ### Validation & State Tracking
 Ensure consistency and correctness with built-in validation rules.
 
